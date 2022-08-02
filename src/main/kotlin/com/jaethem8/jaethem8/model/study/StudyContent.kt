@@ -8,14 +8,14 @@ import javax.persistence.*
 @Entity
 @Table(name = "study_content")
 data class StudyContent(
-        override var id: Long?,
-        override var location: Int?,
+        override var id: Long? = 0,
+        override var location: Int? = null,
         override var header: String? = null,
         override var content: String? = null,
         @ManyToOne(cascade = [CascadeType.PERSIST])
         @JsonBackReference
         @JoinColumn(name = "study_post_id")
-        var studyPost: StudyPost?,
+        var studyPost: StudyPost? = null,
         @JsonManagedReference
         @OneToMany(mappedBy = "studyContent", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
         var studyImages: Set<StudyImage> = hashSetOf(),

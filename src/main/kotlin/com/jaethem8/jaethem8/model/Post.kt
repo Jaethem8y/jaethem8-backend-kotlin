@@ -13,7 +13,7 @@ abstract class Post(
         open var title: String? = null,
         @Lob
         @Column(name = "description", columnDefinition = "BLOB")
-        open var description: String,
+        open var description: String? = null,
         @Column(name = "pub_date")
         open var pubDate: Timestamp? = null,
 )

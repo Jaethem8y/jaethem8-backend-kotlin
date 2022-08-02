@@ -7,9 +7,9 @@ import javax.persistence.*
 @Entity
 @Table(name = "blog_image")
 data class BlogImage(
-        override var id: Long?,
-        override var image: String?,
-        override var location: Int?,
+        override var id: Long? = 0,
+        override var image: String? = null,
+        override var location: Int? = null,
         @ManyToOne(cascade = [CascadeType.PERSIST])
         @JsonBackReference
         @JoinColumn(name = "blog_content_id")

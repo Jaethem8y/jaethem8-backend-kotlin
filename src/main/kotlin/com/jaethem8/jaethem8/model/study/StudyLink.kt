@@ -7,10 +7,10 @@ import javax.persistence.*
 @Entity
 @Table(name = "study_link")
 data class StudyLink(
-        override var id: Long?,
-        override var tag: String?,
-        override var link: String?,
-        override var location: Int?,
+        override var id: Long? = 0,
+        override var tag: String? = null,
+        override var link: String? = null,
+        override var location: Int? = null,
         @ManyToOne(cascade = [CascadeType.PERSIST])
         @JsonBackReference
         @JoinColumn(name = "study_content_id")

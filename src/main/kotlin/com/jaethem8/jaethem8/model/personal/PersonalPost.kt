@@ -8,10 +8,10 @@ import javax.persistence.*
 @Entity
 @Table(name = "blog_post")
 data class PersonalPost(
-        override var id: Long?,
-        override var title: String?,
-        override var description: String,
-        override var pubDate: Timestamp?,
+        override var id: Long? = 0,
+        override var title: String? = null,
+        override var description: String? = null,
+        override var pubDate: Timestamp? = null,
         @JsonManagedReference
         @OneToMany(mappedBy = "personalPost", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
         var personalContents: List<PersonalContent> = mutableListOf()
