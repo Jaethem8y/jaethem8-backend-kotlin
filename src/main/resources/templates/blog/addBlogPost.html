@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.
+             org/thymeleaf-extras-springsecurity3"
+>
+  <head>
+    <style>
+      .header {
+        padding-left: 3em;
+      }
+      .content {
+        padding: 10em;
+      }
+    </style>
+    <title>Jaethem8Admin</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>JaeTheM8Admin</h1>
+    </div>
+    <div class="content">
+      <form
+        th:action="@{/add/blogPost}"
+        th:object="${blogPostDTO}"
+        method="POST"
+      >
+        <h3>AddBlogPost</h3>
+        <table>
+          <tr>
+            <td>title:</td>
+            <td><input type="text" th:field="*{title}" /></td>
+          </tr>
+          <tr>
+            <td>role:</td>
+            <td><input type="text" th:field="*{role}" /></td>
+          </tr>
+          <tr>
+            <td>frontend:</td>
+            <td><input type="text" th:field="*{frontend}" /></td>
+          </tr>
+          <tr>
+            <td>backend:</td>
+            <td><input type="text" th:field="*{backend}" /></td>
+          </tr>
+          <tr>
+            <td>other/general:</td>
+            <td><input type="text" th:field="*{general}" /></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><button>Add</button></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

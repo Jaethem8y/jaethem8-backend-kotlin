@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.
+             org/thymeleaf-extras-springsecurity3"
+>
+  <head>
+    <style>
+      .header {
+        padding-left: 3em;
+      }
+      .content {
+        padding: 10em;
+      }
+    </style>
+    <title>Jaethem8Admin</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>JaeTheM8Admin</h1>
+    </div>
+    <div class="content">
+      <h3>BlogPost</h3>
+      <table>
+        <tr>
+          <td th:text="${blogPost.title}"></td>
+        </tr>
+        <tr>
+          <td th:text="${blogPost.pubDate}"></td>
+        </tr>
+        <tr>
+          <td th:text="${blogPost.role}"></td>
+        </tr>
+        <tr>
+          <td th:text="${blogPost.frontend}"></td>
+        </tr>
+        <tr>
+          <td th:text="${blogPost.backend}"></td>
+        </tr>
+        <tr>
+          <td th:text="${blogPost.general}"></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

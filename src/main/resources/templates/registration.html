@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <style>
+      .header {
+        padding-left: 3em;
+      }
+      .content {
+        display: flex;
+        justify-content: center;
+        padding-top: 3em;
+      }
+    </style>
+    <title>Registration</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>JaeTheM8Admin</h1>
+    </div>
+    <div class="content">
+      <form
+        action="#"
+        th:action="@{/registration}"
+        th:object="${user}"
+        method="POST"
+      >
+        <h3>Register</h3>
+        <table>
+          <tr>
+            <td>name:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+          </tr>
+          <tr>
+            <td>username:</td>
+            <td><input type="text" th:field="*{username}" /></td>
+          </tr>
+          <tr>
+            <td>password:</td>
+            <td><input type="password" th:field="*{password}" /></td>
+          </tr>
+          <tr>
+            <td>role:</td>
+            <td><input type="text" th:field="*{role}" /></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><button>Register</button></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

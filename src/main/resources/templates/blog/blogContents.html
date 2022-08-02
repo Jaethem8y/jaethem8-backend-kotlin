@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.
+             org/thymeleaf-extras-springsecurity3"
+>
+  <head>
+    <style>
+      .header {
+        padding-left: 3em;
+      }
+      .content {
+        padding: 10em;
+      }
+    </style>
+    <title>Jaethem8Admin</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>JaeTheM8Admin</h1>
+    </div>
+    <div class="content">
+      <h3>BlogContents</h3>
+      <table>
+        <th:block th:each="blogContent : ${blogContents}">
+          <tr>
+            <a th:href="@{/blogPost/{postName}(postName=${blogPost.title})}">
+              <td th:text="${blogPost.location}"></td>
+            </a>
+          </tr>
+        </th:block>
+      </table>
+    </div>
+  </body>
+</html>
