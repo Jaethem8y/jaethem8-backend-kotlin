@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface StudyPostRepository : JpaRepository<StudyPost, Long> {
-    fun findByTitle(title: String): StudyPost
-    fun deleteByTitle(title: String)
 }

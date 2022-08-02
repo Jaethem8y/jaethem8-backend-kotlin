@@ -13,7 +13,6 @@ data class User(
     var name: String? = null,
     @Column(name = "username")
     var username: String? = null,
-    @Lob
     @Column(name = "password")
     var password: String? = null,
     @Column(name = "role")

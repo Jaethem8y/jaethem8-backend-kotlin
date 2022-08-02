@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PersonalContentRepository : JpaRepository<PersonalContent, Long> {
-    fun findContentByPostName(postName: String): List<PersonalContent>
 }

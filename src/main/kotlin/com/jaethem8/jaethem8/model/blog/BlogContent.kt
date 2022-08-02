@@ -1,28 +1,25 @@
 package com.jaethem8.jaethem8.model.blog
 
 import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.jaethem8.jaethem8.model.Content
 import javax.persistence.*
 
 @Entity
 @Table(name = "blog_content")
 data class BlogContent(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    var id: Long = 0,
-    @Column(name = "post_name")
-    var postName: String? = null,
-    @Column(name = "location")
-    var location: Int = 0,
-    @Column(name = "content", length = 16777215, columnDefinition = "mediumtext")
-    var content: String? = null,
-    @Lob
-    @Column(name = "image", length = 16777215, columnDefinition = "mediumtext")
-    var image: String? = null,
-    @Column(name = "code", length = 16777215, columnDefinition = "mediumtext")
-    var code: String? = null,
-    @ManyToOne(cascade = [CascadeType.ALL])
-    @JsonBackReference
-    @JoinColumn(name = "blog_post_id")
-    var blogPost: BlogPost? = null,
-)
+        override var id: Long?,
+        override var location: Int?,
+        override var header: String? = null,
+        override var content: String? = null,
+        @ManyToOne(cascade = [CascadeType.PERSIST])
+        @JsonBackReference
+        @JoinColumn(name = "blog_post_id")
+        var blogPost: BlogPost?,
+        @JsonManagedReference
+        @OneToMany(mappedBy = "blogContent", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+        var blogImages: Set<BlogImage> = hashSetOf(),
+        @JsonManagedReference
+        @OneToMany(mappedBy = "blogContent", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+        var blogLinks: Set<BlogLink> = hashSetOf()
+) : Content(id, location, header, content)
