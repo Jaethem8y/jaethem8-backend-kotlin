@@ -18,5 +18,5 @@ interface BlogService {
     fun addBlogImage(blogImageDTO: ImageDTO): BlogImage
     fun addBlogLink(blogLinkDTO: LinkDTO): BlogLink
     fun editBlogPost(blogPostDTO: BlogPostDTO): BlogPost
-    fun deleteBlogPost(blogPostId: Int)
+    fun deleteBlogPost(blogPostDTO: BlogPostDTO)
 }

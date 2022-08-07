@@ -9,23 +9,24 @@ import com.jaethem8.jaethem8.model.blog.BlogImage
 import com.jaethem8.jaethem8.model.blog.BlogLink
 import com.jaethem8.jaethem8.model.blog.BlogPost
 import com.jaethem8.jaethem8.repository.blog.BlogContentRepository
-import com.jaethem8.jaethem8.repository.blog.BlogImageRepository
-import com.jaethem8.jaethem8.repository.blog.BlogLinkRepository
 import com.jaethem8.jaethem8.repository.blog.BlogPostRepository
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 @Service
 class BlogServiceImpl(
-        private val blogImageRepository: BlogImageRepository,
-        private val blogLinkRepository: BlogLinkRepository,
-        private val blogContentRepository: BlogContentRepository,
-        private val blogPostRepository: BlogPostRepository
+        private val blogPostRepository: BlogPostRepository,
+        private val blogContentRepository: BlogContentRepository
 ) : BlogService {
+
+    val logger: Logger = LoggerFactory.getLogger(this::class.java)
+
     @Transactional
     override fun getAllBlogPost(): List<BlogPost> {
-        return blogPostRepository.findAll() ?: throw Exception("No Blog Post Exist at the Moment")
+        return blogPostRepository.findAll()
     }
 
     @Transactional
@@ -50,6 +51,7 @@ class BlogServiceImpl(
         for (blogContentDTO in blogPostDTO.blogContents) {
             var blogContent: BlogContent = addBlogContent(blogContentDTO)
             blogPost.blogContents += blogContent
+            blogContent.blogPost = blogPost
         }
         return blogPostRepository.save(blogPost)
     }
@@ -62,34 +64,47 @@ class BlogServiceImpl(
         for (blogLinkDTO in blogContentDTO.links) {
             var blogLink = addBlogLink(blogLinkDTO)
             blogContent.blogLinks += blogLink
+            blogLink.blogContent = blogContent
         }
         for (blogImageDTO in blogContentDTO.images) {
             var blogImage = addBlogImage(blogImageDTO)
             blogContent.blogImages += blogImage
+            blogImage.blogContent = blogContent
         }
-        return blogContentRepository.save(blogContent)
+        return blogContent
     }
 
     override fun addBlogImage(blogImageDTO: ImageDTO): BlogImage {
         var blogImage = BlogImage()
         blogImage.image = blogImageDTO.image
-        return blogImageRepository.save(blogImage)
+        return blogImage
     }
 
     override fun addBlogLink(blogLinkDTO: LinkDTO): BlogLink {
         var blogLink = BlogLink()
         blogLink.tag = blogLinkDTO.tag
         blogLink.link = blogLinkDTO.link
-        return blogLinkRepository.save(blogLink)
-
+        return blogLink
     }
 
+    @Transactional
     override fun editBlogPost(blogPostDTO: BlogPostDTO): BlogPost {
-        TODO("Not yet implemented")
+        var blogPost = blogPostRepository.findBlogPostByTitle(blogPostDTO.title)
+                ?: throw Exception("Post Does Not Exist")
+        blogContentRepository.deleteByBlogPost(blogPost)
+        blogPost.blogContents = mutableListOf()
+        for (blogContentDTO in blogPostDTO.blogContents) {
+            var blogContent: BlogContent = addBlogContent(blogContentDTO)
+            blogPost.blogContents += blogContent
+            blogContent.blogPost = blogPost
+        }
+        return blogPostRepository.save(blogPost)
     }
 
-    override fun deleteBlogPost(blogPostId: Int) {
-        TODO("Not yet implemented")
+    override fun deleteBlogPost(blogPostDTO: BlogPostDTO) {
+        var blogPost = blogPostRepository.findBlogPostByTitle(blogPostDTO.title)
+                ?: throw Exception("Post Does Not Exist")
+        return blogPostRepository.delete(blogPost)
     }
 
 }

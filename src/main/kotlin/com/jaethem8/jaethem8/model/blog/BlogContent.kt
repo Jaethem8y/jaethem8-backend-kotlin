@@ -17,9 +17,9 @@ data class BlogContent(
         @JoinColumn(name = "blog_post_id")
         var blogPost: BlogPost? = null,
         @JsonManagedReference
-        @OneToMany(mappedBy = "blogContent", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-        var blogImages: Set<BlogImage> = hashSetOf(),
+        @OneToMany(mappedBy = "blogContent", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        var blogImages: List<BlogImage> = mutableListOf(),
         @JsonManagedReference
-        @OneToMany(mappedBy = "blogContent", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-        var blogLinks: Set<BlogLink> = hashSetOf()
+        @OneToMany(mappedBy = "blogContent", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+        var blogLinks: List<BlogLink> = mutableListOf()
 ) : Content(id, location, header, content)

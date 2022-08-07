@@ -21,6 +21,6 @@ data class BlogPost(
         @Column(name = "general")
         var general: String? = null,
         @JsonManagedReference
-        @OneToMany(mappedBy = "blogPost", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+        @OneToMany(mappedBy = "blogPost", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
         var blogContents: List<BlogContent> = mutableListOf()
 ) : Post(id, title, description, pubDate)
